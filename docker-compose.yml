@@ -1,0 +1,88 @@
+projectdata:
+    image: dmitrymomot/docker-data
+    volumes:
+        - ./:/data/www:rw
+#        - ./xhprof:/data/xhprof:rw
+        - ./storage/logs:/data/logs:rw
+    command: "true"
+
+php:
+    image: dmitrymomot/php-fpm-xhprof
+    volumes_from:
+        - projectdata
+    links:
+        - db
+        - memcached
+        - redis
+    restart: always
+
+db:
+    image: mariadb
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: homestead
+        MYSQL_USER: homestead
+        MYSQL_PASSWORD: secret
+#    volumes:
+#        - ./app/database/dumps/docker:/docker-entrypoint-initdb.d
+    restart: always
+    privileged: true
+
+aplication:
+    hostname: shop.dev
+    domainname: shop.dev
+    image: dmitrymomot/nginx
+    environment:
+        VIRTUAL_HOST: shop.dev
+    volumes_from:
+        - projectdata
+    links:
+        - php:fpm
+    restart: always
+
+deps:
+    image: dmitrymomot/composer
+    command: clear-cache
+    command: update --ignore-platform-reqs -vv
+    working_dir: /data/www
+    volumes_from:
+        - projectdata
+
+migrations:
+    image: dmitrymomot/laravel-artisan
+    command: migrate --seed --env=local
+    working_dir: /data/www
+    volumes_from:
+        - projectdata
+    links:
+        - db
+        - memcached
+        - redis
+
+artisan:
+    image: dmitrymomot/laravel-artisan
+    volumes_from:
+        - projectdata
+    links:
+        - db
+        - memcached
+        - redis
+
+pma:
+    image: dmitrymomot/pma
+    links:
+        - db:mysql
+    environment:
+        VIRTUAL_HOST: pma.shop.dev
+        MYSQL_USERNAME: root
+        MYSQL_ROOT_PASSWORD: root
+        MAX_UPLOAD: "512M"
+    restart: always
+
+memcached:
+    image: memcached
+    restart: always
+
+redis:
+    image: redis
+    restart: always
