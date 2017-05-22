@@ -38,7 +38,17 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">
+                    @section('sidebar')
+                        This is the master sidebar.
+                    @show
+
+                    {{--<div class="container">--}}
+                        {{--@yield('content')--}}
+                    {{--</div>   --}}
+
+
+                </div>
             </div>
         </div>
     </body>
