@@ -2,8 +2,8 @@
 
 namespace App;
 
-use cucxabeng\HtmlDom\HtmlDom;
 use Illuminate\Support\Facades\Storage;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class Parser
 {
@@ -54,7 +54,7 @@ class Parser
                 $info['url']
             );
         }else{
-            $html = new HtmlDom($response);
+            $html = HtmlDomParser::str_get_html($response);
             try {
                 $content['pars_url'] = $info['url'];
                 foreach($html->find('.elevmap_header-h1') as $div){
@@ -124,7 +124,7 @@ class Parser
             //   if(count($content) == 500){
             // echo "<hr>".count($content);
             $array = array_map("trim", $content);
-//            $model = (new Elevator)->addOrNew($array);
+            $model = (new Elevator)->addOrNew($array);
             var_dump($array);
             // $fp = fopen('file.csv', 'w');
             // foreach ($array as $fields) {

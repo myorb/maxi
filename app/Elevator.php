@@ -15,13 +15,13 @@ class Elevator extends Model
         'title', 'basic_info', 'elevator_company',
         'elevator_start_date', 'elevator_boss', 'elevator_type',
         'basic_logo', 'additional_info', 'address',
-        'link', 'phone', 'email',
+        'link', 'phone', 'email','pars_url',
     ];
 
     public function addOrNew($atr)
     {
         if(isset($atr['pars_url'])){
-            $model = static::where('pars_url', $atr['pars_url'])->first();
+            $model = static::where('pars_url','=', $atr['pars_url'])->first();
             if(!$model){
                 self::create($atr);
             }

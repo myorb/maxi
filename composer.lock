@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "412221eb9a32289b57d2a1c409a90528",
-    "content-hash": "d914baa9efc23a675658282480a1ccc2",
+    "hash": "d94d933a79ea2b9e7509a403a81587c4",
+    "content-hash": "90c2f7b5e1bafba9e4868c2956267878",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1798,39 +1798,6 @@
     ],
     "packages-dev": [
         {
-            "name": "cucxabeng/simple-html-dom",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cucxabeng/simple-html-dom.git",
-                "reference": "b0beee37b4bdb4e3cebf0e07ea97ce82552f833f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cucxabeng/simple-html-dom/zipball/b0beee37b4bdb4e3cebf0e07ea97ce82552f833f",
-                "reference": "b0beee37b4bdb4e3cebf0e07ea97ce82552f833f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "cucxabeng\\HtmlDom": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "HaiDang",
-                    "email": "cucxabeng@gmail.com"
-                }
-            ],
-            "description": "SimpleHtmlDom for Laravel 5",
-            "time": "2016-03-25 09:26:34"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -3000,6 +2967,54 @@
             "time": "2015-06-21 13:59:46"
         },
         {
+            "name": "sunra/php-simple-html-dom-parser",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sunra/php-simple-html-dom-parser.git",
+                "reference": "75b9b1cb64502d8f8c04dc11b5906b969af247c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sunra/php-simple-html-dom-parser/zipball/75b9b1cb64502d8f8c04dc11b5906b969af247c6",
+                "reference": "75b9b1cb64502d8f8c04dc11b5906b969af247c6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sunra\\PhpSimple\\HtmlDomParser": "Src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sunra",
+                    "email": "sunra@yandex.ru",
+                    "homepage": "https://github.com/sunra"
+                },
+                {
+                    "name": "S.C. Chen",
+                    "homepage": "http://sourceforge.net/projects/simplehtmldom/"
+                }
+            ],
+            "description": "Composer adaptation of: A HTML DOM parser written in PHP5+ let you manipulate HTML in a very easy way! Require PHP 5+. Supports invalid HTML. Find tags on an HTML page with selectors just like jQuery. Extract contents from HTML in a single line.",
+            "homepage": "https://github.com/sunra/php-simple-html-dom-parser",
+            "keywords": [
+                "dom",
+                "html",
+                "parser"
+            ],
+            "time": "2016-11-22 22:57:47"
+        },
+        {
             "name": "symfony/css-selector",
             "version": "v3.0.9",
             "source": {
@@ -3216,9 +3231,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cucxabeng/simple-html-dom": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

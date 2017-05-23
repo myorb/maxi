@@ -13,8 +13,20 @@ class CreateElevetorsTable extends Migration
     public function up()
     {
         Schema::create('elevators', function (Blueprint $table) {
-            $table->string('pars_url');
-            $table->string('note');
+            $table->increments('id');
+            $table->string('title');
+            $table->text('basic_info');
+            $table->string('elevator_company');
+            $table->string('elevator_start_date');
+            $table->string('elevator_boss');
+            $table->string('elevator_type');
+            $table->string('basic_logo');
+            $table->text('additional_info');
+            $table->string('address');
+            $table->string('link');
+            $table->string('phone');
+            $table->string('email');
+            $table->timestamps();
         });
     }
 
@@ -25,9 +37,6 @@ class CreateElevetorsTable extends Migration
      */
     public function down()
     {
-        Schema::table('elevators', function (Blueprint $table) {
-            $table->dropColumn('pars_url');
-            $table->dropColumn('note');
-        });
+        Schema::drop('elevators');
     }
 }

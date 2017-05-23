@@ -13,6 +13,8 @@ class ElevatorController extends Controller
 //        $user_agents = explode("\n", Storage::get( DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'useragent_list.txt'));
 //        var_dump($user_agents);
 
+
+
         (new Parser)->init();
 //        var_dump((new Parser)->test());
         $model = new Elevator();
