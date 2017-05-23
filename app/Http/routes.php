@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return view('info',array('slot' => 'MEDVED'));
 });
+
+Route::resource('e', 'ElevatorController');
+
