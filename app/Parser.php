@@ -10,16 +10,16 @@ class Parser
     public $AC;
     public $proxi_list;
     public $user_agents;
+    static $total;
 
     function __construct()
     {
         $this->AC = new AngryCurl(__CLASS__.'::callback_function');
-//        $this->proxi_list = explode("\n",Storage::get(DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'proxy_list.txt'));
         $this->user_agents = explode("\n", Storage::get( DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'useragent_list.txt'));
-
+//        $this->proxi_list = explode("\n",Storage::get(DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'proxy_list.txt'));
     }
 
-    public function init() {
+    public function init($url=null) {
         $AC = $this->AC;
         $AC->init_console();
         if($this->proxi_list) {
@@ -31,12 +31,19 @@ class Parser
                 'title>G[o]{2}gle'
             );
         }
-        $AC->load_useragent_list($this->user_agents);
-        $usls =  explode("\n",Storage::get('urls.txt'));
-        foreach ($usls as $value) {
-            $AC->get(trim($value));
+        if($url){
+            $AC->load_useragent_list($this->user_agents);
+            foreach($url as $u)
+                $AC->get($u->url);
+            $AC->execute(2);
+        }else{
+            $AC->load_useragent_list($this->user_agents);
+            $usls =  explode("\n",Storage::get('urls.txt'));
+            foreach ($usls as $value) {
+                $AC->get(trim($value));
+            }
+            $AC->execute(5);
         }
-        $AC->execute(5);
     }
 
     static function callback_function($response, $info, $request)
@@ -53,6 +60,7 @@ class Parser
                 "\t" .
                 $info['url']
             );
+//            (new Elevator)->updateOrNew(['pars_url' => $info['url']]);
         }else{
             $html = HtmlDomParser::str_get_html($response);
             try {
@@ -80,19 +88,6 @@ class Parser
 
                 }
 
-                // foreach ($html->find('.elevmap_basic-info',0)->find('p',2)->find('strong') as $p) {
-                //     // foreach ($el->find('strong') as $e2) {
-                //         var_dump($p->plaintext);
-                //     // }
-                // }
-                // var_dump($html->find('.elevmap_basic-info p',0)->next_sibling()->next_sibling()->innertext );
-
-                // $content['elevator_company'] = $html->find('.elevmap_basic-info',0)->find('p',0)->find('strong',0)->innertext;
-                // $content['elevator_start_date'] = $html->find('.elevmap_basic-info',0)->find('p',1)->find('strong',0)->innertext;
-                // $content['elevator_boss'] = $html->find('.elevmap_basic-info',0)->find('p',2)->find('strong',0)->innertext;
-                // $content['elevator_type'] = $html->find('.elevmap_basic-info',0)->find('p',3)->find('strong',0)->innertext;
-
-
                 foreach($html->find('.elevmap_basic-logo') as $div){
                     $content['basic_logo'] = $div->innertext;
                 }
@@ -116,29 +111,8 @@ class Parser
 
             }
 
-
-            //           foreach($html->find('.catalog  .clearfix .tech-char') as $div){
-            //               $content[] = $div->plaintext;
-            //               var_dump($div->plaintext);
-            //           }
-            //   if(count($content) == 500){
-            // echo "<hr>".count($content);
             $array = array_map("trim", $content);
-            $model = (new Elevator)->addOrNew($array);
-            var_dump($array);
-            // $fp = fopen('file.csv', 'w');
-            // foreach ($array as $fields) {
-            // fputcsv($fp, $array);
-            // }
-            // fclose($fp);
-            // $str = implode ("\n", $array);
-            // $str = json_encode($content);
-            // $j = json_encode($array) ;
-            // file_put_contents ("data.txt", $j, FILE_APPEND | LOCK_EX);
-// end... if more then 500 rows
-            // die('all done');
-            // }
-            // var_dump(json_decode($j));
+            (new Elevator)->updateOrNew($array);
         }
     }
 

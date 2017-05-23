@@ -4,21 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Elevator;
 use App\Parser;
+use App\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ElevatorController extends Controller
 {
     public function index(Request $request){
-//        $user_agents = explode("\n", Storage::get( DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'useragent_list.txt'));
-//        var_dump($user_agents);
+        $parser = new Parser();
+        $t = Url::where('status','')->paginate(300);
+        foreach($t as $u){
+                $u->status = 'in_work';
+                $u->save();
+        }
+        try {
+            $parser->init($t);
+        } catch (Exception $e) {
+
+        }
+
+//        $url = new Url();
 
 
 
-        (new Parser)->init();
+
+//        (new Parser)->init();
+//        var_dump('ok');
 //        var_dump((new Parser)->test());
-        $model = new Elevator();
-        return response(json_encode($model->all()));
+//        $model = new Elevator();
+//        response($model->count)
+//        return response(json_encode($model->all()));
     }
 
     public function create($atr){
@@ -29,5 +44,7 @@ class ElevatorController extends Controller
             }
         }
     }
+
+//    public function
 
 }

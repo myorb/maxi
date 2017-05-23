@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/f', function () {
+    var_dump(explode("\n",Storage::get(DIRECTORY_SEPARATOR . 'import' . DIRECTORY_SEPARATOR . 'proxy_list.txt')));
+//    return view('welcome');
 });
 
 Route::get('/hello', function () {
     return view('info',array('slot' => 'MEDVED'));
 });
 
-Route::resource('e', 'ElevatorController');
+Route::resource('/', 'ElevatorController');
 
