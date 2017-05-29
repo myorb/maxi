@@ -22,6 +22,8 @@ class CreateElevetorsTable extends Migration
             $table->string('elevator_type');
             $table->string('basic_logo');
             $table->text('additional_info');
+            $table->text('html');
+            $table->integer('url_id');
             $table->string('address');
             $table->string('link');
             $table->string('phone');

@@ -15,7 +15,7 @@ class Elevator extends Model
         'title', 'basic_info', 'elevator_company',
         'elevator_start_date', 'elevator_boss', 'elevator_type',
         'basic_logo', 'additional_info', 'address',
-        'link', 'phone', 'email','pars_url','note',
+        'link', 'phone', 'email','pars_url','note', 'html', 'url_id'
     ];
 
     public function updateOrNew($atr)
@@ -26,7 +26,7 @@ class Elevator extends Model
         if(!$model){
             $url = Url::where('url','=',$atr['pars_url'])->first();
             $model = new Elevator();
-            $atr['note'] = $url->id;
+            $atr['url_id'] = $url->id;
             $model::create($atr);
             $url->status = 'done';
             $url->note = $model->id;
