@@ -13,7 +13,7 @@ class ElevatorController extends Controller
 {
     public function index(Request $request){
         $parser = new Parser();
-        $t = Url::where('status','')->paginate(1);
+        $t = Url::where('status','in_work')->paginate(100);
 //        var_dump($t['0']->url);die();
         foreach($t as $u){
             $urls[] = $u->url;

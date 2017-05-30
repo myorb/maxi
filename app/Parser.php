@@ -77,7 +77,7 @@ class Parser
                 $content['html'] = $html->find('body',0);
                 foreach($html->find('.elevmap_header-h1') as $div){
                     $content['title'] = $div->plaintext;
-//                    var_dump($div->plaintext);
+                    var_dump($div->plaintext);
                 }
                 foreach($html->find('.elevmap_basic-info') as $div){
                     $a1 = explode(' ', $div->plaintext);
@@ -181,11 +181,11 @@ class Parser
 
             $array = array_map("trim", $content);
             foreach($array as $k=>$v){
-                echo '$table->string("'.$k."\");\r\n";
-//                $b[$k] = preg_replace('/\s+/', ' ',$v);
+//                echo '"'.$k."\",\r\n";
+                $b[$k] = preg_replace('/\s+/', ' ',$v);
             }
-            var_dump($array);
-//            (new Elevator)->updateOrNew($array);
+//            var_dump($array);
+            (new Elevator)->updateOrNew($b);
         }
     }
 

@@ -23,4 +23,5 @@ Route::get('/hello', function () {
 Route::resource('/', 'ElevatorController');
 Route::resource('mail', 'ElevatorController@mail');
 Route::resource('urls', 'ElevatorController@urls');
+Route::resource('site', 'SiteController');
 
